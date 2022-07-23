@@ -1,5 +1,7 @@
 package com.security.ansj.config;
 
+import com.security.ansj.student.StudentAuthenticationToken;
+import com.security.ansj.teacher.TeacherAuthenticationToken;
 import lombok.CustomLog;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,7 +25,22 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
         username = username.trim();
         String password = obtainPassword(request);
         password = (password != null) ? password : "";
-        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
-        return this.getAuthenticationManager().authenticate(authRequest);
+
+        String type = request.getParameter("type");//type을 이용하여 각각의 authenticationToken을 달리할 수 있다.
+        if(type == null || type.equals("student")){
+            //student
+//            UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username,password);
+//            return this.getAuthenticationManager().authenticate(authRequest);
+            StudentAuthenticationToken token = StudentAuthenticationToken.builder().credentials(username).build();
+            return this.getAuthenticationManager().authenticate(token);
+        }else{
+            //teacher
+//            UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
+//            return this.getAuthenticationManager().authenticate(authRequest);
+            TeacherAuthenticationToken token = TeacherAuthenticationToken.builder().credentials(username).build();
+            return this.getAuthenticationManager().authenticate(token);
+        }
+//        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
+//        return this.getAuthenticationManager().authenticate(authRequest);
     }
 }

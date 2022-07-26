@@ -1,4 +1,4 @@
-package com.security.ansj;
+package com.security.ansj.config;
 
 import com.security.ansj.service.SpUserService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;

@@ -3,7 +3,9 @@ package com.security.ansj.config;
 import com.security.ansj.domain.SpUser;
 import com.security.ansj.service.SpUserService;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DbInit implements InitializingBean {
     private final SpUserService userService;
 

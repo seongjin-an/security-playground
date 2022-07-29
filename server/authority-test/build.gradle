@@ -1,0 +1,8 @@
+
+dependencies {
+//    testImplementation project(":test-web-util")
+    testImplementation project(":web-test-util")
+    implementation("$boot:spring-boot-starter-test")
+    implementation("$boot:spring-boot-starter-web")
+}
+

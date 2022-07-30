@@ -2,6 +2,7 @@ package com.security.ansj.controller;
 
 import com.security.ansj.service.SecurityMessageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +17,11 @@ public class HomeController {
 
     MethodSecurityInterceptor interceptor;
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("@nameCheck.check(#name)")
     @GetMapping("/greeting/{name}")
-    public String greeting(@PathVariable String name){
-        return "hello " + securityMessageService.message(name);
+    public ResponseEntity<String> greeting(@PathVariable String name){
+        return ResponseEntity.ok("hello " + securityMessageService.message(name));
     }
 
 }
